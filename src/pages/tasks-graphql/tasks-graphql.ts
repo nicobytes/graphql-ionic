@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { TasksGraphqlProvider } from '../../providers/tasks-graphql/tasks-graphql';
 
@@ -10,17 +10,17 @@ import { TasksGraphqlProvider } from '../../providers/tasks-graphql/tasks-graphq
 })
 export class TasksGraphqlPage {
 
+  tasks: any[] = [];
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    private navCtrl: NavController,
     private tasksProvider: TasksGraphqlProvider
-  ) {
-  }
+  ) {}
 
   ionViewDidLoad() {
     this.tasksProvider.getAll()
-    .subscribe(data =>{
-      console.log(data);
+    .subscribe(response =>{
+      this.tasks = response.data.allTasks;
     });
   }
 
